@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun BaseRoute(
+    baseViewModel: BaseViewModel,
     content: @Composable () -> Unit,
 ) {
 

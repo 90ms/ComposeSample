@@ -12,11 +12,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import k90ms.compose.design.base.BaseRoute
+import k90ms.compose.design.base.BaseViewModel
 import k90ms.compose.design.theme.ComposeTheme
 import k90ms.compose.navigation.BottomNav
 import k90ms.compose.navigation.Destinations
@@ -47,6 +52,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeTheme {
 
+                var baseViewModel: BaseViewModel by remember {
+                    mutableStateOf(BaseViewModel())
+                }
+
                 val navController = rememberNavController()
                 val backStackEntry = navController.currentBackStackEntryAsState()
                 val currentScreenRoute = backStackEntry.value?.destination?.route
@@ -71,12 +80,15 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) { paddingValues ->
-                    BaseRoute {
+                    BaseRoute(baseViewModel = baseViewModel) {
                         ComposeNavHost(
                             navController = navController,
                             modifier = Modifier.padding(
                                 bottom = paddingValues.calculateBottomPadding()
                             ),
+                            onProvideBaseViewModel = { viewModel ->
+                                baseViewModel = viewModel
+                            }
                         )
                     }
                 }
