@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 
-class BaseViewModel : ViewModel(), BaseContract {
+open class BaseViewModel : ViewModel(), BaseContract {
 
     protected val mutableBaseState: MutableStateFlow<BaseContract.BaseState> =
         MutableStateFlow(BaseContract.BaseState.OnSuccess)
