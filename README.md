@@ -1,2 +1,2 @@
 # ComposeSample
-compose + MVI
+compose + MVI + OpenAI
