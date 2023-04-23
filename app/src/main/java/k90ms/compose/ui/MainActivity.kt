@@ -25,6 +25,7 @@ import k90ms.compose.design.base.BaseViewModel
 import k90ms.compose.design.theme.ComposeTheme
 import k90ms.compose.navigation.BottomNav
 import k90ms.compose.navigation.Destinations
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

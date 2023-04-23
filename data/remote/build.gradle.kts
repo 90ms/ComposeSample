@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -15,6 +17,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField("String", "API_KEY", getApiKey("API_KEY"))
     }
 
     buildTypes {
@@ -33,12 +37,18 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+
+}
+
+fun getApiKey(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
 
 dependencies {
     NetworkDependencies.apply {
         implementation(retrofit)
         implementation(gson)
+        implementation(okHttp)
         implementation(loggingInterceptor)
         debugImplementation(chucker)
         releaseImplementation(chuckerNoOp)
